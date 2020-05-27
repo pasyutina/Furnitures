@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище FurnituresModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AgentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="DealShare" Type="int" />
+        </EntityType>
+        <EntityType Name="ClientsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="MiddleName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DealSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdClient" Type="int" />
+          <Property Name="IdAgent" Type="int" />
+          <Property Name="IdProduct" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Material" Type="nvarchar(max)" />
+          <Property Name="Length" Type="float" />
+          <Property Name="Width" Type="float" />
+          <Property Name="Height" Type="float" />
+          <Property Name="Price" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DealSet_AgentSet">
+          <End Role="AgentSet" Type="Self.AgentSet" Multiplicity="0..1" />
+          <End Role="DealSet" Type="Self.DealSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DealSet">
+              <PropertyRef Name="IdAgent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DealSet_ClientsSet">
+          <End Role="ClientsSet" Type="Self.ClientsSet" Multiplicity="0..1" />
+          <End Role="DealSet" Type="Self.DealSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DealSet">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DealSet_ProductSet">
+          <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="0..1" />
+          <End Role="DealSet" Type="Self.DealSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DealSet">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище FurnituresModelContainer">
+          <EntitySet Name="AgentSet" EntityType="Self.AgentSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientsSet" EntityType="Self.ClientsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DealSet" EntityType="Self.DealSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSet" EntityType="Self.ProductSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DealSet_AgentSet" Association="Self.FK_DealSet_AgentSet">
+            <End Role="AgentSet" EntitySet="AgentSet" />
+            <End Role="DealSet" EntitySet="DealSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DealSet_ClientsSet" Association="Self.FK_DealSet_ClientsSet">
+            <End Role="ClientsSet" EntitySet="ClientsSet" />
+            <End Role="DealSet" EntitySet="DealSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DealSet_ProductSet" Association="Self.FK_DealSet_ProductSet">
+            <End Role="ProductSet" EntitySet="ProductSet" />
+            <End Role="DealSet" EntitySet="DealSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FurnituresModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AgentSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DealShare" Type="Int32" />
+          <NavigationProperty Name="DealSet" Relationship="Self.FK_DealSet_AgentSet" FromRole="AgentSet" ToRole="DealSet" />
+        </EntityType>
+        <EntityType Name="ClientsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DealSet" Relationship="Self.FK_DealSet_ClientsSet" FromRole="ClientsSet" ToRole="DealSet" />
+        </EntityType>
+        <EntityType Name="DealSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdClient" Type="Int32" />
+          <Property Name="IdAgent" Type="Int32" />
+          <Property Name="IdProduct" Type="Int32" />
+          <NavigationProperty Name="AgentSet" Relationship="Self.FK_DealSet_AgentSet" FromRole="DealSet" ToRole="AgentSet" />
+          <NavigationProperty Name="ClientsSet" Relationship="Self.FK_DealSet_ClientsSet" FromRole="DealSet" ToRole="ClientsSet" />
+          <NavigationProperty Name="ProductSet" Relationship="Self.FK_DealSet_ProductSet" FromRole="DealSet" ToRole="ProductSet" />
+        </EntityType>
+        <EntityType Name="ProductSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Material" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Length" Type="Double" />
+          <Property Name="Width" Type="Double" />
+          <Property Name="Height" Type="Double" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="DealSet" Relationship="Self.FK_DealSet_ProductSet" FromRole="ProductSet" ToRole="DealSet" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DealSet_AgentSet">
+          <End Role="AgentSet" Type="Self.AgentSet" Multiplicity="0..1" />
+          <End Role="DealSet" Type="Self.DealSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AgentSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DealSet">
+              <PropertyRef Name="IdAgent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DealSet_ClientsSet">
+          <End Role="ClientsSet" Type="Self.ClientsSet" Multiplicity="0..1" />
+          <End Role="DealSet" Type="Self.DealSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DealSet">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DealSet_ProductSet">
+          <End Role="ProductSet" Type="Self.ProductSet" Multiplicity="0..1" />
+          <End Role="DealSet" Type="Self.DealSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DealSet">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FurnituresEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AgentSet" EntityType="Self.AgentSet" />
+          <EntitySet Name="ClientsSet" EntityType="Self.ClientsSet" />
+          <EntitySet Name="DealSet" EntityType="Self.DealSet" />
+          <EntitySet Name="ProductSet" EntityType="Self.ProductSet" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_DealSet_AgentSet" Association="Self.FK_DealSet_AgentSet">
+            <End Role="AgentSet" EntitySet="AgentSet" />
+            <End Role="DealSet" EntitySet="DealSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DealSet_ClientsSet" Association="Self.FK_DealSet_ClientsSet">
+            <End Role="ClientsSet" EntitySet="ClientsSet" />
+            <End Role="DealSet" EntitySet="DealSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DealSet_ProductSet" Association="Self.FK_DealSet_ProductSet">
+            <End Role="ProductSet" EntitySet="ProductSet" />
+            <End Role="DealSet" EntitySet="DealSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FurnituresModelContainer" CdmEntityContainer="FurnituresEntities">
+          <EntitySetMapping Name="AgentSet">
+            <EntityTypeMapping TypeName="FurnituresModel.AgentSet">
+              <MappingFragment StoreEntitySet="AgentSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="DealShare" ColumnName="DealShare" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientsSet">
+            <EntityTypeMapping TypeName="FurnituresModel.ClientsSet">
+              <MappingFragment StoreEntitySet="ClientsSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DealSet">
+            <EntityTypeMapping TypeName="FurnituresModel.DealSet">
+              <MappingFragment StoreEntitySet="DealSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdAgent" ColumnName="IdAgent" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSet">
+            <EntityTypeMapping TypeName="FurnituresModel.ProductSet">
+              <MappingFragment StoreEntitySet="ProductSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Material" ColumnName="Material" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="FurnituresModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
